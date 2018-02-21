@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 from . import local_settings
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = local_settings.SECRET_KEY
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -55,7 +54,7 @@ ROOT_URLCONF = 'my_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,7 +68,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_shop.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -103,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -117,10 +114,35 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+# путь до папки media, в общем случае она пуста в начале
 
-TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'  # URL для медии в шаблонах
+
+STATIC_ROOT = ''
+
+STATIC_URL = '/static/'  # URL для шаблонов
+
+STATICFILES_DIRS = (
+
+    os.path.join(BASE_DIR, 'static'),
+
+)
+
+# "Поисковики" статики. Первый ищет статику в STATICFILES_DIRS,
+
+# второй в папках приложений.
+
+STATICFILES_FINDERS = (
+
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+)
+
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
