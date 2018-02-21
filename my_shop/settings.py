@@ -10,8 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+# TODO: 26.00
 import os
-from . import local_settings
+
+try:
+    from . import local_settings
+except ImportError:
+    pass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'landing.apps.ShopConfig',
+    'orders.apps.OrdersConfig',
+    'products.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
