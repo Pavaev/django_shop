@@ -27,8 +27,8 @@
     </database>
     <schema id="9" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2018-02-21.13:25:03.278</IntrospectionTimestamp>
-      <IntrospectionStateNumber>861</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-02-21.14:00:57.988</IntrospectionTimestamp>
+      <IntrospectionStateNumber>900</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -47,54 +47,54 @@
     <schema id="14" parent="2" name="information_schema">
       <ObjectId>12157</ObjectId>
     </schema>
-    <sequence id="15" parent="9" name="landing_subscriber_id_seq">
-      <ObjectId>25138</ObjectId>
-      <StateNumber>861</StateNumber>
-      <BelongsToColumn>1</BelongsToColumn>
-    </sequence>
-    <sequence id="16" parent="9" name="auth_group_id_seq">
+    <sequence id="15" parent="9" name="auth_group_id_seq">
       <ObjectId>24996</ObjectId>
       <StateNumber>827</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="17" parent="9" name="auth_group_permissions_id_seq">
+    <sequence id="16" parent="9" name="auth_group_permissions_id_seq">
       <ObjectId>25006</ObjectId>
       <StateNumber>827</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="18" parent="9" name="auth_permission_id_seq">
+    <sequence id="17" parent="9" name="auth_permission_id_seq">
       <ObjectId>24988</ObjectId>
       <StateNumber>827</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="19" parent="9" name="auth_user_groups_id_seq">
+    <sequence id="18" parent="9" name="auth_user_groups_id_seq">
       <ObjectId>25024</ObjectId>
       <StateNumber>827</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="20" parent="9" name="auth_user_id_seq">
+    <sequence id="19" parent="9" name="auth_user_id_seq">
       <ObjectId>25014</ObjectId>
       <StateNumber>827</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="21" parent="9" name="auth_user_user_permissions_id_seq">
+    <sequence id="20" parent="9" name="auth_user_user_permissions_id_seq">
       <ObjectId>25032</ObjectId>
       <StateNumber>827</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="22" parent="9" name="django_admin_log_id_seq">
+    <sequence id="21" parent="9" name="django_admin_log_id_seq">
       <ObjectId>25092</ObjectId>
       <StateNumber>829</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="23" parent="9" name="django_content_type_id_seq">
+    <sequence id="22" parent="9" name="django_content_type_id_seq">
       <ObjectId>24978</ObjectId>
       <StateNumber>825</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
-    <sequence id="24" parent="9" name="django_migrations_id_seq">
+    <sequence id="23" parent="9" name="django_migrations_id_seq">
       <ObjectId>24967</ObjectId>
       <StateNumber>824</StateNumber>
+      <BelongsToColumn>1</BelongsToColumn>
+    </sequence>
+    <sequence id="24" parent="9" name="landing_subscriber_id_seq">
+      <ObjectId>25138</ObjectId>
+      <StateNumber>861</StateNumber>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
     <table id="25" parent="9" name="auth_group">
@@ -137,9 +137,9 @@
       <ObjectId>25127</ObjectId>
       <StateNumber>847</StateNumber>
     </table>
-    <table id="35" parent="9" name="landing_subscriber">
+    <table id="35" parent="9" name="subscribers">
       <ObjectId>25140</ObjectId>
-      <StateNumber>861</StateNumber>
+      <StateNumber>900</StateNumber>
     </table>
     <column id="36" parent="25" name="id">
       <Position>1</Position>
@@ -791,11 +791,25 @@ model</ColNames>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="141" parent="35" name="landing_subscriber_pkey">
+    <index id="141" parent="35" name="landing_subscriber_email_a9a9b93b_uniq">
+      <ObjectId>25152</ObjectId>
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="142" parent="35" name="landing_subscriber_email_a9a9b93b_like">
+      <ObjectId>25154</ObjectId>
+      <ColNames>email</ColNames>
+    </index>
+    <key id="143" parent="35" name="landing_subscriber_pkey">
       <ObjectId>25145</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>landing_subscriber_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+    </key>
+    <key id="144" parent="35" name="landing_subscriber_email_a9a9b93b_uniq">
+      <ObjectId>25153</ObjectId>
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>landing_subscriber_email_a9a9b93b_uniq</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
