@@ -6,42 +6,57 @@
     <meta charset="UTF-8">
     <title>Hello!</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+    <!-- Roboto font-family -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400&amp;subset=cyrillic,cyrillic-ext,latin-ext"
+          rel="stylesheet">
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 
+
 </head>
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="title">Наш магазин скоро откроется!</h1>
-            <h1 class="title">Оставляйте ваш email в форме ниже:</h1>
+<div class="general-container">
+    <div class="container top-container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h1 class="title">Наш магазин скоро откроется!
+                    Оставляйте ваш email в форме ниже:</h1>
 
-            <div>
-                <form action="" method="POST"> {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" class="btn  btn-primary" value="Отправить">
-                </form>
+                <div>
+                    <form action="" method="POST" class="form-inline text-center"> {% csrf_token %}
+                        <div class="form-group">
+                            <label for="email">Ваш email: </label>
+                            <input id="email" placeholder="john@example.com" name="{{ form.email.name }}"
+                                   class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Ваше имя: </label>
+                            <input id="name" placeholder="John Smith" name="{{ form.name.name }}" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-orange" value="Отправить">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-<!-- Bootstrap JS -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
 <!-- JQuery -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
 
 
 </body>

@@ -11,4 +11,4 @@ def landing(request):
     if request.POST and form.is_valid():
         form.save()
         return render(request, 'landing/landing.html', locals())
-    return
+    return render(request, 'landing/landing.html', locals())
