@@ -15,7 +15,22 @@
 
 </head>
 <body>
-<h1 class="title">Hello, world! {{ name }}</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="title">Наш магазин скоро откроется!</h1>
+            <h1 class="title">Оставляйте ваш email в форме ниже:</h1>
+
+            <div>
+                <form action="" method="POST"> {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn  btn-primary" value="Отправить">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Bootstrap JS -->

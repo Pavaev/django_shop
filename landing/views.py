@@ -1,8 +1,14 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
+from landing.forms import SubscriberForm
 
 
 # Create your views here.
 
 def landing(request):
     name = 'Meow'
-    return render(request, 'landing/landing.html', locals())
+    form = SubscriberForm(request.POST or None)
+
+    if request.POST and form.is_valid():
+        form.save()
+        return render(request, 'landing/landing.html', locals())
+    return
