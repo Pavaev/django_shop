@@ -17,7 +17,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def __str__(self):
-        return smart_text('Товар: ' + str(self.name))
+        return smart_text('Товар: ' + self.name + " Цена:" + str(self.price))
 
 
 class ProductImage(models.Model):
