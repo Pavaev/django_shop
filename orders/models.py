@@ -35,7 +35,7 @@ class Order(models.Model):
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
 
     def __str__(self):
-        return smart_text('Заказ: ' + str(self.id) + ' Статус: ' + self.status)
+        return smart_text('Заказ: ' + str(self.id) + ' Статус: ' + self.status.name)
 
 
 class ProductInOrder(models.Model):
