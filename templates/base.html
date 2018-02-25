@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello!</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+    <!-- Roboto font-family -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400&amp;subset=cyrillic,cyrillic-ext,latin-ext"
+          rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+
+</head>
+<body>
+
+<div class="wrapper">
+
+    {% include 'navbar.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+
+    {% include 'footer.html' %}
+
+</div>
+
+
+<!-- JQuery -->
+<script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
