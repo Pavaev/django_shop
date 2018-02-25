@@ -5,6 +5,20 @@ html, body {
     background-color: #edeef0;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+
+.wrapper {
+    padding-bottom: 100px;
+}
+
+.footer {
+    margin-bottom: -100px;
+    background-color: white;
+    height: 200px;
+}
+
 .section-top {
     margin: 20px;
 }
@@ -29,6 +43,14 @@ html, body {
     margin-bottom: 10px;
 }
 
-.section-top .img-responsive {
-    margin: 0 auto;
+.section h1 {
+    margin-bottom: 40px;
+}
+
+.section-top {
+    margin-bottom: 20px;
+}
+
+.section {
+    padding: 50px 0;
 }
