@@ -4,6 +4,19 @@ from django.utils.encoding import smart_text
 
 # Create your models here.
 
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=64, blank=True, default=None, null=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = 'categories'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return smart_text('Категория: ' + self.name)
+
+
 class Product(models.Model):
     class Meta:
         db_table = 'products'
@@ -11,7 +24,10 @@ class Product(models.Model):
         verbose_name_plural = 'Products'
 
     name = models.CharField(max_length=64, blank=True, default=None, null=True)
+    category = models.ForeignKey(ProductCategory, blank=True, null=True,
+                                 on_delete=models.NOT_PROVIDED)
     price = models.IntegerField(blank=False, default=None, null=False)
+    discount = models.IntegerField(default=0)
     description = models.TextField(blank=True, default=None, null=True)
     short_description = models.TextField(blank=True, default=None, null=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)

@@ -1,6 +1,16 @@
 from django.contrib import admin
 
-from products.models import Product, ProductImage
+from products.models import Product, ProductImage, ProductCategory
+
+
+class ProductCategoryAdmin(admin.ModelAdmin):
+    class Meta:
+        model = ProductCategory
+
+    list_display = [field.name for field in ProductCategory._meta.fields]
+
+
+admin.site.register(ProductCategory, ProductCategoryAdmin)
 
 
 class ProductImageInline(admin.TabularInline):
@@ -17,5 +27,3 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
-
-

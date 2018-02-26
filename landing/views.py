@@ -16,5 +16,8 @@ def landing(request):
 
 
 def home(request):
-    products_images = ProductImage.objects.filter(is_main=True)
+    products_images_jewsharps = ProductImage.objects.filter(is_main=True, product__category__name='Варганы')
+    products_images_didgeridoos = ProductImage.objects.filter(is_main=True, product__category__name='Диджериду')
+    products_images_cajons = ProductImage.objects.filter(is_main=True, product__category__name='Кахоны')
+
     return render_to_response('landing/home.html', locals())
