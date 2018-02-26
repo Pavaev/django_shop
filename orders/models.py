@@ -44,6 +44,26 @@ class Order(models.Model):
         return smart_text('Заказ: ' + str(self.id) + ' Статус: ' + self.status.name)
 
 
+class ProductInBasket(models.Model):
+    session_key = models.CharField(max_length=128, blank=True, null=True, default=None)
+    order = models.ForeignKey(Order, blank=True, default=None, null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product, blank=True, default=None, null=True, on_delete=models.SET_NULL)
+    count = models.IntegerField(default=1, blank=False, null=False)
+    price_per_item = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # price_per_item*count
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'Product in basket'
+        verbose_name_plural = 'Products in basket'
+
+    def save(self, *args, **kwargs):
+        self.price_per_item = self.product.price
+        self.total_price = int(self.count) * self.price_per_item
+
+        super(ProductInBasket, self).save(*args, **kwargs)
+
+
 class ProductInOrder(models.Model):
     order = models.ForeignKey(Order, blank=True, default=None, null=True, on_delete=models.SET_NULL)
     product = models.ForeignKey(Product, blank=True, default=None, null=True, on_delete=models.SET_NULL)

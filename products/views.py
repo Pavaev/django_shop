@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 
 # Create your views here.
 from products.models import Product
@@ -6,4 +6,9 @@ from products.models import Product
 
 def product(request, product_id):
     product = Product.objects.get(id=product_id)
-    return render_to_response('products/product.html', locals())
+
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.cycle_key()
+
+    return render(request, 'products/product.html', locals())
