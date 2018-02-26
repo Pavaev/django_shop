@@ -115,5 +115,35 @@ body,
     margin-left: 15px;
     max-width: 70px !important;
 
+}
 
+.navbar-top {
+    min-height: 20px;
+    height: 20px;
+    background-color: #348f50;
+    background-image: none;
+    border: none;
+    border-radius: 0;
+}
+
+.navbar-main {
+    background-color: rgb(75, 183, 119);
+    background-image: none;
+    border: none;
+    border-radius: 0;
+}
+
+.basket-container {
+    position: relative;
+    width: 400px;
+    padding: 15px 10px;
+}
+
+.basket-items {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    background-color: floralwhite;
+    z-index: 10;
+    padding: 10px;
 }
