@@ -103,6 +103,17 @@ body,
     color: white;
 }
 
-.product-description-tabs{
+.product-description-tabs {
     padding: 10px;
+}
+
+.btn-buy {
+    margin-left: 10px;
+}
+
+.form-count {
+    margin-left: 15px;
+    max-width: 70px !important;
+
+
 }
