@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
 
     var form = $('#form_buying_product');
     form.on('submit', function (e) {
@@ -24,42 +24,33 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log("OK");
                     console.log(data.products_total_count);
-                    if (data.products_total_count) {
-                        $('#basket_total_count').text(' ('+data.products_total_count+')');
-                    }
+
+                    $(".basket-items ul").empty();
+
+                    $("#basket_total_count").text(' (' + data.products_total_count + ')');
+                    $.each(data.products, function (k, v) {
+                        $(".basket-items ul").append('<li>' + v.name + ' '
+                            + v.count + ' шт.' + 'по ' + v.price_per_item + 'rub       ' +
+                            '<a href="#" class="delete-item">x</a></li>')
+                    })
                 }
             });
 
 
-            $('.basket-items ul').append('<li>' + product_name + ', '
-                + count + ' шт.' + 'по ' + product_price + 'rub       ' +
-                '<a href="#" class="delete-item">x</a></li>')
-
         }
     );
 
-    function showingBasket() {
-        $('.basket-items').removeClass('hidden');
 
-    }
-
-
-    $('.basket-container').on('click', function (e) {
-        e.preventDefault();
-        showingBasket()
-
-    });
     $('.basket-container').mouseover(function (e) {
-        showingBasket()
+        $('.basket-items').removeClass('hidden');
     });
-    // $('.basket-container').mouseout('click', function (e) {
-    //     $('.basket-items').addClass('hidden');
-    // });
+    $('.basket-container').mouseout(function (e) {
+        $('.basket-items').addClass('hidden');
+    });
 
-    $(document).on('click', '.delete-item', function (e) {
-        e.preventDefault();
-        $(this).closest('li').remove();
-    })
+    // $(document).on('click', '.delete-item', function (e) {
+    //     e.preventDefault();
+    //     $(this).closest('li').remove();
+    // })
 });
 
-//TODO: https://www.youtube.com/watch?v=c2Q9wj9ju3Y
