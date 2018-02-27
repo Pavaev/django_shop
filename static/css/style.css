@@ -148,3 +148,7 @@ body,
     z-index: 10;
     padding: 10px;
 }
+
+.navbar-total-amout {
+    text-align: right;
+}

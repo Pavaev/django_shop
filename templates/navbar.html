@@ -48,10 +48,17 @@
                         <div class="basket-items hidden">
                             <ul class="">
                                 {% for product_in_basket in products_in_basket %}
-                                    <li>{{ product_in_basket.product.name }} {{ product_in_basket.count }} шт. по {{ product_in_basket.price_per_item }}rub <a href="#"
-                                                                                                                class="delete-item">x</a>
+                                    <li>{{ product_in_basket.product.name }} {{ product_in_basket.count }} шт.
+                                        по {{ product_in_basket.price_per_item }}rub <a href="#"
+                                                                                        class="delete-item"
+                                                                                        data-product_id="{{ product_in_basket.id }}">x</a>
                                     </li>
                                 {% endfor %}
+                                {% if total_amout %}
+                                    <div class="navbar-total-amout"> Итого: {{ total_amout }}rub</div>
+                                {% else %}
+                                    Корзина пуста
+                                {% endif %}
                             </ul>
 
                         </div>
