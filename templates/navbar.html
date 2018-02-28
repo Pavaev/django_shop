@@ -54,8 +54,12 @@
                                                                                         data-product_id="{{ product_in_basket.id }}">x</a>
                                     </li>
                                 {% endfor %}
-                                {% if total_amout %}
-                                    <div class="navbar-total-amout"> Итого: {{ total_amout }}rub</div>
+                                {% if total_amount %}
+                                    <div class="navbar-total-amount"> Итого: {{ total_amount }}rub<br>
+                                        <a href="{% url 'checkout' %}" class="btn btn-success btn-xs">
+                                            Оформить заказ
+                                        </a>
+                                    </div>
                                 {% else %}
                                     Корзина пуста
                                 {% endif %}

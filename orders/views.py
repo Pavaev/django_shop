@@ -25,12 +25,20 @@ def basket_addition(request):
     products = ProductInBasket.objects.filter(session_key=session_key, is_active=True)
     products_total_count = 0
     return_dict["products"] = list()
-    return_dict["total_amout"] = 0
+    return_dict["total_amount"] = 0
     for product in products:
         products_total_count += product.count
         product_dict = {"id": product.id, "name": product.product.name, "price_per_item": product.price_per_item,
                         "count": product.count}
         return_dict["products"].append(product_dict)
-        return_dict["total_amout"] += product.price_per_item * product.count
+        return_dict["total_amount"] += product.price_per_item * product.count
     return_dict["products_total_count"] = products_total_count
     return JsonResponse(return_dict)
+
+
+def checkout(request):
+    products_in_basket = ProductInBasket.objects.filter(session_key=request.session.session_key)
+
+    if request.POST:
+        pass
+    return render(request, 'orders/checkout.html', locals())

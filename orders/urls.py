@@ -6,5 +6,7 @@ from orders import views
 admin.autodiscover()
 
 urlpatterns = [
-    re_path('^basket_addition/$', views.basket_addition, name='basket_addition')
+    re_path('^basket_addition/$', views.basket_addition, name='basket_addition'),
+    re_path('^checkout/$', views.checkout, name='checkout')
+
 ]

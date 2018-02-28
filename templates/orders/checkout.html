@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h3 class="text-center">Товары в корзине</h3>
+                <form method="POST">
+                {% csrf_token %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Название товара</th>
+                            <th>Количество</th>
+                            <th>Цена</th>
+                            <th>Стоимость</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for product_in_basket in products_in_basket %}
+                            <tr>
+                                <td>
+                                    {{ product_in_basket.product.name }}
+                                </td>
+                                <td>
+                                        <input class="product-in-basket-count" type="number"
+                                           value="{{ product_in_basket.count }}" min="1">
+
+                                </td>
+                                <td>
+                                    <span class="product-price">{{ product_in_basket.price_per_item }}</span>
+
+                                </td>
+                                <td>
+                                    <span class="total_product_in_basket_amount">{{ product_in_basket.total_price }}</span>
+
+                                </td>
+                            </tr>
+
+
+
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                    <div class="text-right">
+                        <b>Общая стоимость: </b><span id="total_order_amount">1005050</span>
+                    </div>
+                    <br>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary bnt-lg">Заказать</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+
+{% endblock %}
