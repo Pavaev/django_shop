@@ -152,3 +152,7 @@ body,
 .navbar-total-amount {
     text-align: right;
 }
+
+.form-error {
+    color: red;
+}

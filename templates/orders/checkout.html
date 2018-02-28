@@ -7,8 +7,28 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h3 class="text-center">Товары в корзине</h3>
-                <form method="POST">
-                {% csrf_token %}
+                <form class="form-horizontal" method="POST">
+                    {% csrf_token %}
+
+
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <span class="form-error">{{ contact_form.phone.errors }}</span>
+
+                            <label>Имя: </label>
+                            <input type="text" value="{{ request.POST.name }}"
+                                   name="{{ contact_form.name.html_name }}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-1">
+                        <div class="form-group">
+                            <span class="form-error">{{ contact_form.phone.errors }}</span>
+
+                            <label>Телефон: </label>
+                            <input type="text" value="{{ request.POST.phone }}"
+                                   name="{{ contact_form.phone.html_name }}" class="form-control phone">
+                        </div>
+                    </div>
                     <table class="table">
                         <thead>
                         <tr>
@@ -26,8 +46,9 @@
                                     {{ product_in_basket.product.name }}
                                 </td>
                                 <td>
-                                        <input class="product-in-basket-count" type="number"
-                                           value="{{ product_in_basket.count }}" min="1">
+                                    <input class="product-in-basket-count" type="number"
+                                           value="{{ product_in_basket.count }}" min="1"
+                                           name="product_in_basket_{{ product_in_basket.id }}">
 
                                 </td>
                                 <td>
