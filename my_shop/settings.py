@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'landing.apps.ShopConfig',
     'orders.apps.OrdersConfig',
     'products.apps.ProductsConfig',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'orders.context_processors.get_basket_info',
+                'orders.context_processors.get_basket_info'
             ],
         },
     },
