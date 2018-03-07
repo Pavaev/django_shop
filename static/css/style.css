@@ -156,3 +156,13 @@ body,
 .form-error {
     color: red;
 }
+
+.form-register {
+    background-color: ghostwhite;
+    padding: 3%;
+    margin-top: 1%;
+    border-radius: 10px;
+
+
+}
+
