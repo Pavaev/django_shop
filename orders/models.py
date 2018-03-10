@@ -28,8 +28,6 @@ class Order(models.Model):
         verbose_name_plural = 'Orders'
 
     user = models.ForeignKey(User, blank=True, default=None, null=True, on_delete=models.NOT_PROVIDED)
-    # total_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2,
-    #                                   default=0)  # total price for all products in order
     name = models.CharField(max_length=64, blank=False, default=None, null=False)
     email = models.EmailField(blank=True, default=None, null=True)
     phone = models.CharField(max_length=48, blank=False, default=None, null=False)

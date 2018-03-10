@@ -28,19 +28,25 @@ $(document).ready(function () {
             cache: true,
             success: function (data) {
 
-                $(".basket-items ul").empty();
-
-                $("#basket_total_count").text(' (' + data.products_total_count + ')');
-                $.each(data.products, function (k, v) {
-                    $(".basket-items ul").append('<li>' + v.name + ' '
-                        + v.count + ' шт.' + 'по ' + v.price_per_item + 'rub       ' +
-                        '<a href="#" class="delete-item" data-product_id="' + v.id + '">x</a></li>')
-                });
-                if (data.total_amount > 0) {
-                    $(".basket-items ul").append('<div class="navbar-total-amount">Итого:' + data.total_amount + 'rub</div>');
+                if (data.count_error.length) {
+                    console.log(data);
+                    alert("Неверное число заказанных товаров!");
                 }
                 else {
-                    $(".basket-items ul").append('Корзина пуста')
+                    $(".basket-items ul").empty();
+
+                    $("#basket_total_count").text(' (' + data.products_total_count + ')');
+                    $.each(data.products, function (k, v) {
+                        $(".basket-items ul").append('<li>' + v.name + ' '
+                            + v.count + ' шт.' + 'по ' + v.price_per_item + 'rub       ' +
+                            '<a href="#" class="delete-item" data-product_id="' + v.id + '">x</a></li>')
+                    });
+                    if (data.total_amount > 0) {
+                        $(".basket-items ul").append('<div class="navbar-total-amount">Итого:' + data.total_amount + 'rub</div>');
+                    }
+                    else {
+                        $(".basket-items ul").append('Корзина пуста')
+                    }
                 }
             }
         });

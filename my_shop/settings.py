@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'products.apps.ProductsConfig',
     'rest_framework',
-    'api',
+    'api', 'cart'
 ]
 
 MIDDLEWARE = [
@@ -77,6 +77,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_shop.wsgi.application'
+
+CART_SESSION_ID = 'cart'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
