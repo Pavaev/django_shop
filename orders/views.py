@@ -17,8 +17,16 @@ def add_to_cart(request):
     if not count or int(count) < 1:
         return JsonResponse({"count_error": "Неверное число заказанных товаров"})
     product = get_object_or_404(Product, id=data.get("product_id"))
-    cart.add(product, count)
-    return render(request, 'base.html', locals())
+    if (data.get("is_delete")) == 'true':
+        cart.delete_product(product)
+    else:
+        cart.add(product, count)
+    return_dict = {}
+    return_dict["products"] = list()
+    return_dict["total_amount"] = 0
+    return_dict["products_total_count"] = len(cart)
+    return JsonResponse(return_dict)
+
 
 @require_POST
 def remove_from_cart(request):

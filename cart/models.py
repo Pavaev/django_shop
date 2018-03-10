@@ -25,13 +25,9 @@ class Cart(object):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
 
-    def get_basket_total_count(self):
-        total_count = 0
-        for item in self.cart.items():
-            for product in item:
-                total_count += int(product['count'])
-        return total_count
+    def __len__(self):
+        return sum(int(item['count']) for item in self.cart.values())
 
-    def delete_product_from_cart(self, product):
+    def delete_product(self, product):
         self.cart.pop(product.id)
-        self.save()
+        self.session.modified = True
