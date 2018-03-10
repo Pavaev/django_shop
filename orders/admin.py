@@ -3,20 +3,20 @@ from django.contrib import admin
 # Register your models here.
 from django.contrib import admin
 
-from orders.models import Order, Status, ProductInOrder, ProductInBasket
+from orders.models import Order, Status
 
 
-class ProductInOrderInline(admin.TabularInline):
-    model = ProductInOrder
-    extra = 0
+class ProductOrderInline(admin.TabularInline):
+    model = Order.product.through
 
 
 class OrderAdmin(admin.ModelAdmin):
     class Meta():
         model = Order
 
+    inlines = [ProductOrderInline, ]
     list_display = [field.name for field in Order._meta.fields]
-    inlines = [ProductInOrderInline]
+    exclude = ('product',)
 
 
 admin.site.register(Order, OrderAdmin)
@@ -30,13 +30,3 @@ class StatusAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Status, StatusAdmin)
-
-
-class ProductInBasketAdmin(admin.ModelAdmin):
-    class Meta:
-        model = ProductInBasket
-
-    list_display = [field.name for field in ProductInBasket._meta.fields]
-
-
-admin.site.register(ProductInBasket, ProductInBasketAdmin)

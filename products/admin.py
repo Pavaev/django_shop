@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from orders.admin import ProductOrderInline
 from products.models import Product, ProductImage, ProductCategory
 
 
@@ -23,7 +24,7 @@ class ProductAdmin(admin.ModelAdmin):
         model = Product
 
     list_display = [field.name for field in Product._meta.fields]
-    inlines = [ProductImageInline]
+    inlines = [ProductImageInline, ProductOrderInline]
 
 
 admin.site.register(Product, ProductAdmin)
