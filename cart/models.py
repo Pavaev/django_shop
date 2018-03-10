@@ -12,15 +12,26 @@ class Cart(object):
         self.cart = cart
 
     def add(self, product, count):
-        product_id = product.id
+        product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'count': 0,
-                                     'price': str(product.price)}
+                                     'price': product.price}
             self.cart[product_id]['count'] = count
         else:
-            self.cart[product_id]['count'] += count
+            self.cart[product_id]['count'] = int(count) + int(self.cart[product_id]['count'])
         self.save()
 
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
+
+    def get_basket_total_count(self):
+        total_count = 0
+        for item in self.cart.items():
+            for product in item:
+                total_count += int(product['count'])
+        return total_count
+
+    def delete_product_from_cart(self, product):
+        self.cart.pop(product.id)
+        self.save()

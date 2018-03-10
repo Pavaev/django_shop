@@ -45,7 +45,7 @@
 
             </div>
             <div>
-                <form id="form_buying_product" class="form-inline" action="{% url 'add_to_basket' %}">
+                <form id="form_buying_product" class="form-inline" action="{% url 'add_to_cart' %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="number" name="count" id="count" value="1" class="form-control form-count" min="1">
