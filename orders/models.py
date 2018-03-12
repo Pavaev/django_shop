@@ -38,6 +38,7 @@ class Order(models.Model):
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     is_active = models.BooleanField(default=False)
     product = models.ManyToManyField(Product)
+    count = models.IntegerField(blank=False, default=1, null=False)
 
     def save(self, *args, **kwargs):
         super(Order, self).save(*args, **kwargs)

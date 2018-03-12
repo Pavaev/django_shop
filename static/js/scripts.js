@@ -1,5 +1,7 @@
 $(document).ready(function () {
-
+    $.ajaxSetup({
+        headers: {"X-CSRFToken": $.cookie('csrftoken')}
+    });
 
     function basketAmount() {
         var total_order_amount = 0;
@@ -11,35 +13,30 @@ $(document).ready(function () {
     }
 
 
-    function updateBasket(product_id, count, is_delete) {
+    function updateCart(product_id, count, url) {
 
         var data = {};
         data.product_id = product_id;
         data.count = count;
-        data.csrfmiddlewaretoken = $('#form_buying_product').find('[name="csrfmiddlewaretoken"]').val();
-        data.is_delete = is_delete;
-
-
-        var url = form.attr('action');
         $.ajax({
             url: url,
             type: 'POST',
             data: data,
             cache: true,
             success: function (data) {
+                if (data.count_error) {
 
-                if (data.count_error.length) {
-                    console.log(data);
                     alert("Неверное число заказанных товаров!");
                 }
                 else {
                     $(".basket-items ul").empty();
 
                     $("#basket_total_count").text(' (' + data.products_total_count + ')');
-                    $.each(data.products, function (k, v) {
+                    $.each(data.products_in_basket, function (k, v) {
+                        console.log(v);
                         $(".basket-items ul").append('<li>' + v.name + ' '
-                            + v.count + ' шт.' + 'по ' + v.price_per_item + 'rub       ' +
-                            '<a href="#" class="delete-item" data-product_id="' + v.id + '">x</a></li>')
+                            + v.count + ' шт.' + 'по ' + v.price + 'rub       ' +
+                            '<a href="#" class="delete-item" data-action="' + url + '" data-product_id="' + v.id + '">x</a></li>')
                     });
                     if (data.total_amount > 0) {
                         $(".basket-items ul").append('<div class="navbar-total-amount">Итого:' + data.total_amount + 'rub</div>');
@@ -59,9 +56,9 @@ $(document).ready(function () {
             var count = $('#count').val();
             var submit_btn = $('#submit-btn');
             var product_id = submit_btn.data("product-id");
+            var url = form.attr('action');
 
-
-            updateBasket(product_id, count, is_delete = false)
+            updateCart(product_id, count, url)
 
 
         }
@@ -79,7 +76,8 @@ $(document).ready(function () {
         e.preventDefault();
         product_id = $(this).data("product_id");
         count = 0;
-        updateBasket(product_id, count, is_delete = true)
+        url = $(this).data("action");
+        updateCart(product_id, count, url)
     });
 
     basketAmount();
