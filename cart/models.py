@@ -30,12 +30,8 @@ class Cart(object):
     def __len__(self):
         return sum(int(item['count']) for item in self.cart.values())
 
-    def len_one(self, product_id):
-        product = self.cart.values()[product_id]
-        return product['count']
-
     def delete_product(self, product):
-        self.cart.pop(product.id)
+        self.cart.pop(str(product.id))
         self.session.modified = True
 
     def get_all(self):

@@ -54,12 +54,12 @@
                                         по {{ v.price }}rub <a href="#"
                                                                class="delete-item"
                                                                data-action="{% url 'remove_from_cart' %}"
-                                                               data-product_id="{{ v }}">x</a>
+                                                               data-product_id="{{ k }}">x</a>
                                     </li>
                                 {% endfor %}
-                                {% if total_amount %}
+                                {% if products_total_count %}
                                     <div class="navbar-total-amount"> Итого: {{ total_amount }}rub<br>
-                                        <a href="{% url 'checkout' %}" class="btn btn-success btn-xs">
+                                        <a href="#" class="btn btn-success btn-xs">
                                             Оформить заказ
                                         </a>
                                     </div>
