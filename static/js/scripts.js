@@ -4,11 +4,7 @@ $(document).ready(function () {
     });
 
 
-    var current_count = $(".product-in-basket-count").val();
-    var current_tr = $(".product-in-basket-count").closest("tr");
-    var current_price = current_tr.find(".product-price").text();
-    var total_amount = parseFloat(current_count * current_price).toFixed(2);
-    current_tr.find(".total_product_in_basket_amount").text(total_amount);
+
 
 
     function itemsCounter() {

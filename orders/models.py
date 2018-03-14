@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import signals
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.utils.encoding import smart_text
 
 # Create your models here.
@@ -37,11 +38,15 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
     is_active = models.BooleanField(default=False)
-    product = models.ManyToManyField(Product)
-    count = models.IntegerField(blank=False, default=1, null=False)
+    products = models.ManyToManyField(Product, through='ProductInOrder', through_fields=('order', 'product'))
 
-    def save(self, *args, **kwargs):
-        super(Order, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return smart_text(str(self.id) + ' ' + self.name)
+
+
+class ProductInOrder(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    count = models.IntegerField(blank=False, null=False, default=1)

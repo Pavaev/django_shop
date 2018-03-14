@@ -1,7 +1,9 @@
 # Create your models here.
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
 
 from my_shop import settings
+
 from products.models import Product
 
 
@@ -45,4 +47,8 @@ class Cart(object):
         return products
 
     def get_sum(self):
-        return sum(int(item['price'])*int(item['count']) for item in self.cart.values())
+        return sum(int(item['price']) * int(item['count']) for item in self.cart.values())
+
+    def del_all(self):
+        self.cart.clear()
+        self.session.modified = True

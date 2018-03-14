@@ -1,4 +1,4 @@
-from django.forms import forms, CharField, IntegerField
+from django.forms import forms, CharField
 
 
 class CheckoutContactForm(forms.Form):
@@ -6,5 +6,3 @@ class CheckoutContactForm(forms.Form):
     phone = CharField(required=True)
 
 
-class BasketPanelForm(forms.Form):
-    count = IntegerField(min_value=1, required=True)

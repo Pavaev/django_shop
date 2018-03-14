@@ -7,7 +7,7 @@ from orders.models import Order, Status
 
 
 class ProductOrderInline(admin.TabularInline):
-    model = Order.product.through
+    model = Order.products.through
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -19,7 +19,6 @@ class OrderAdmin(admin.ModelAdmin):
 
     inlines = [ProductOrderInline, ]
     list_display = [field.name for field in Order._meta.fields]
-    exclude = ('product',)
 
 
 @admin.register(Status)
