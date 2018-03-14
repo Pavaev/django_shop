@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
@@ -22,7 +22,7 @@ def add_to_cart(request):
     product = get_object_or_404(Product, id=data.get("product_id"))
     cart.add(product, count)
     return_dict = {}
-    return_dict["total_amount"] = 0
+    return_dict["total_amount"] = cart.get_sum()
     return_dict["products_in_basket"] = cart.cart
     return_dict["products_total_count"] = len(cart)
     return JsonResponse(return_dict)
@@ -39,4 +39,13 @@ def remove_from_cart(request):
     return_dict = {}
     return_dict["products_total_count"] = len(cart)
     return_dict["products_in_basket"] = cart.cart
+    return_dict["total_amount"] = cart.get_sum()
     return JsonResponse(return_dict)
+
+
+def checkout(request):
+    if request.method == 'POST':
+        pass
+    cart = Cart(request)
+    products_in_basket = cart.cart
+    return render(request, 'orders/checkout.html', locals())

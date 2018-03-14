@@ -38,7 +38,7 @@
                 <li>
                     <div class="basket-container
 ">
-                        <a href="">Корзина<span id="basket_total_amount"></span><span
+                        <a href="#">Корзина<span id="basket_total_amount"></span><span
                                 id="basket_total_count">
                             {% if products_total_count %}
                                 ({{ products_total_count }})
@@ -59,7 +59,7 @@
                                 {% endfor %}
                                 {% if products_total_count %}
                                     <div class="navbar-total-amount"> Итого: {{ total_amount }}rub<br>
-                                        <a href="#" class="btn btn-success btn-xs">
+                                        <a href="{% url 'checkout' %}" class="btn btn-success btn-xs">
                                             Оформить заказ
                                         </a>
                                     </div>

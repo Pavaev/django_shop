@@ -43,3 +43,6 @@ class Cart(object):
             except ObjectDoesNotExist:
                 pass
         return products
+
+    def get_sum(self):
+        return sum(int(item['price'])*int(item['count']) for item in self.cart.values())

@@ -3,12 +3,19 @@ $(document).ready(function () {
         headers: {"X-CSRFToken": $.cookie('csrftoken')}
     });
 
-    
+
+    var current_count = $(".product-in-basket-count").val();
+    var current_tr = $(".product-in-basket-count").closest("tr");
+    var current_price = current_tr.find(".product-price").text();
+    var total_amount = parseFloat(current_count * current_price).toFixed(2);
+    current_tr.find(".total_product_in_basket_amount").text(total_amount);
+
+
     function itemsCounter() {
-        
+
     }
 
-    
+
     function basketAmount() {
         var total_order_amount = 0;
         $(".total_product_in_basket_amount").each(function () {
@@ -45,7 +52,9 @@ $(document).ready(function () {
                             '<a href="#" class="delete-item" data-action="/cart_delete/" data-product_id="' + k + '">x</a></li>')
                     });
                     if (data.products_total_count > 0) {
-                        $(".basket-items ul").append('<div class="navbar-total-amount">Итого:' + data.total_amount + 'rub</div>');
+                        $(".basket-items ul").append('<div class="navbar-total-amount">Итого:' + data.total_amount + 'rub<br><a href="/checkout/" class="btn btn-success btn-xs">\n' +
+                            '                                            Оформить заказ\n' +
+                            '                                        </a></div>');
                     }
                     else {
                         $(".basket-items ul").append('Корзина пуста')
