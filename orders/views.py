@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from cart.models import Cart
-from orders.decorators import required_AJAX
+from orders.decorators import require_AJAX
 from orders.forms import CheckoutContactForm
 from orders.models import Order, ProductInOrder, Status
 
@@ -15,7 +15,7 @@ from products.models import Product
 
 
 @require_POST
-@required_AJAX
+@require_AJAX
 def add_to_cart(request):
     cart = Cart(request)
     data = request.POST
@@ -33,7 +33,7 @@ def add_to_cart(request):
 
 @require_POST
 @csrf_exempt
-@required_AJAX
+@require_AJAX
 def remove_from_cart(request):
     cart = Cart(request)
     data = request.POST
@@ -47,13 +47,14 @@ def remove_from_cart(request):
 
 
 def checkout(request):
-    contact_form = CheckoutContactForm()
     cart = Cart(request)
+    if len(cart.cart) == 0:
+        return redirect('/')
+    contact_form = CheckoutContactForm()
     products_in_basket = cart.cart
     if request.method == 'POST':
         data = request.POST
         contact_form = CheckoutContactForm(request.POST or None)
-        print(data)
         if contact_form.is_valid():
             name = contact_form.cleaned_data['name']
             phone = contact_form.cleaned_data['phone']
@@ -63,7 +64,7 @@ def checkout(request):
                     continue
                 id = item.split('product_in_basket_')[1]
                 product = get_object_or_404(Product, id=id)
-                ProductInOrder.objects.update_or_create(product=product, order=order, count=data[item])
+                ProductInOrder.objects.create(product=product, order=order, count=data[item])
         cart.del_all()
         return redirect(reverse('landing:home'))
     return render(request, 'orders/checkout.html', locals())

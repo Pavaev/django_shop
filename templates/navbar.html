@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav class="navbar navbar-default navbar-top">
+<nav class="navbar navbar-default navbar-top" xmlns="http://www.w3.org/1999/html">
 
 </nav>
 
@@ -72,39 +72,54 @@
                     </div>
                 </li>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-                    <ul id="login-dp" class="dropdown-menu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8"
-                                          id="login-nav">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2"
-                                                   placeholder="Email" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2"
-                                                   placeholder="Пароль" required>
-                                            <div class="help-block text-right"><a href="">Forget the password ?</a>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Войти</button>
-                                        </div>
 
-                                    </form>
+                {% if not request.user.is_authenticated %}
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
+                                class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form" role="form" method="post" action="{% url 'auth:login' %}"
+                                              accept-charset="UTF-8"
+                                              id="login-nav">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                                <input type="text" class="form-control" name="username"
+                                                       id="exampleInputEmail2"
+                                                       placeholder="Username" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                <input type="password" class="form-control" name="password"
+                                                       id="exampleInputPassword2"
+                                                       placeholder="Пароль" required>
+                                                <div class="help-block text-right"><a href="">Forget the password ?</a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="bottom text-center">
+                                        Нет аккаунта ? <a href="{% url 'auth:register' %}"><b>Регистрация</b></a>
+                                    </div>
                                 </div>
-                                <div class="bottom text-center">
-                                    Нет аккаунта ? <a href="{% url 'auth:register' %}"><b>Регистрация</b></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>
+                        <div class="logout">
+                            <a href="{% url 'auth:logout' %}">Logout</a>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
         </div><!--/.nav-collapse -->
     </div>

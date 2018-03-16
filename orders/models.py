@@ -37,10 +37,8 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     products = models.ManyToManyField(Product, through='ProductInOrder', through_fields=('order', 'product'))
-
-
 
     def __str__(self):
         return smart_text(str(self.id) + ' ' + self.name)
