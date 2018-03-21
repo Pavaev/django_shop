@@ -4,12 +4,21 @@ $(document).ready(function () {
     });
 
 
-
-
-
-    function itemsCounter() {
-
-    }
+    $("#comment").on("submit", function (e) {
+        e.preventDefault();
+        var data = {};
+        console.log('lol');
+        data.text = $("#comment_text").val();
+        $.ajax({
+            url: 'comment/add',
+            type: 'POST',
+            data: data,
+            cache: true,
+            success: function (data) {
+                alert(data);
+            }
+        })
+    });
 
 
     function basketAmount() {

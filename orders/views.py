@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
@@ -58,7 +59,10 @@ def checkout(request):
         if contact_form.is_valid():
             name = contact_form.cleaned_data['name']
             phone = contact_form.cleaned_data['phone']
-            order = Order.objects.create(name=name, phone=phone, status_id=1)
+            user = None
+            if request.user.is_authenticated:
+                user = User.objects.get(username=request.user.username)
+            order = Order.objects.create(name=name, phone=phone, status_id=1, user=user)
             for item in data:
                 if len(item.split('product_in_basket_')) == 1:
                     continue

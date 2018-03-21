@@ -16,8 +16,13 @@
                             <span class="form-error">{{ contact_form.phone.errors }}</span>
 
                             <label>Имя: </label>
-                            <input type="text" value="{{ request.POST.name }}"
-                                   name="{{ contact_form.name.html_name }}" class="form-control">
+                            {% if request.user.is_authenticated %}
+                            <input type="text" value="{{ request.user.username }}"
+                                   name="{{ contact_form.name.html_name }}" class="form-control" required>
+                                {% else %}
+                                <input type="text" value="{{ request.POST.name }}"
+                                   name="{{ contact_form.name.html_name }}" class="form-control" required>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-lg-5 col-lg-offset-1">
@@ -26,7 +31,7 @@
 
                             <label>Телефон: </label>
                             <input type="text" value="{{ request.POST.phone }}"
-                                   name="{{ contact_form.phone.html_name }}" class="form-control phone">
+                                   name="{{ contact_form.phone.html_name }}" class="form-control phone" required>
                         </div>
                     </div>
                     <table class="table">

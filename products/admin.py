@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from orders.admin import ProductOrderInline
-from products.models import Product, ProductImage, ProductCategory
+from products.models import Product, ProductImage, ProductCategory, ProductComment
 
 
 @admin.register(ProductCategory)
@@ -17,10 +17,15 @@ class ProductImageInline(admin.TabularInline):
     extra = 0
 
 
+class ProductCommentInline(admin.TabularInline):
+    model = ProductComment
+    extra = 1
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     class Meta:
         model = Product
 
     list_display = [field.name for field in Product._meta.fields]
-    inlines = [ProductImageInline, ProductOrderInline]
+    inlines = [ProductImageInline, ProductCommentInline, ProductOrderInline, ]
