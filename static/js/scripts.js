@@ -1,13 +1,32 @@
+function loadComments(page) {
+        var data = {};
+        data['page'] = page;
+        $.ajax({
+            url: window.location.pathname,
+            type: 'GET',
+            data: data,
+            cache: true,
+            success: function (data) {
+                $('#wrapper').html(data);
+            }
+
+
+        });
+    }
+
+
+
 $(document).ready(function () {
     $.ajaxSetup({
         headers: {"X-CSRFToken": $.cookie('csrftoken')}
     });
 
 
+
     $("#comment").on("submit", function (e) {
         e.preventDefault();
         var data = {};
-        console.log('lol');
+
         data.text = $("#comment_text").val();
         $.ajax({
             url: 'comment/add',
@@ -15,9 +34,10 @@ $(document).ready(function () {
             data: data,
             cache: true,
             success: function (data) {
-                alert(data);
+                $('#wrapper').html(data);
+                $('#comment_text').val('')
             }
-        })
+        });
     });
 
 

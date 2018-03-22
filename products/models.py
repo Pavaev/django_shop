@@ -61,4 +61,4 @@ class ProductComment(models.Model):
     text = models.TextField(blank=False, null=False, max_length=1024)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    created = models.DateField(auto_now_add=True, auto_now=False)
+    created = models.DateTimeField(auto_now_add=True, auto_now=False)

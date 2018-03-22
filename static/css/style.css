@@ -258,3 +258,11 @@ body,
     border-right-color: #ddd;
     border-width: 8px;
 }
+
+.my-pagination {
+    text-align: center;
+    margin-bottom: 3%;
+}
+#comment_text{
+    margin-bottom: 1%;
+}

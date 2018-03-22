@@ -61,9 +61,17 @@
                     </h3></div>
                     <div role="tabpanel" class="tab-pane" id="messages">
 
-
-                        {% include "products/comments.html" %}
-
+                        <div id="wrapper">
+                            {% include "products/comments.html" %}
+                        </div>
+                        <form method="POST" id="comment">
+                            {% csrf_token %}
+                            <textarea id="comment_text" maxlength="1024" name="comment_text"
+                                      class="form-control comment"
+                                      required></textarea>
+                            <span class="form-error"></span>
+                            <button type="submit" class="btn btn-sm btn-info">Добавить комментарий</button>
+                        </form>
 
                     </div>
 
