@@ -28,7 +28,7 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
-    user = models.ForeignKey(User, blank=True, default=None, null=True, on_delete=models.NOT_PROVIDED)
+    user = models.ForeignKey(User, blank=True, default=None, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=64, blank=False, default=None, null=False)
     email = models.EmailField(blank=True, default=None, null=True)
     phone = models.CharField(max_length=48, blank=False, default=None, null=False)
@@ -36,7 +36,7 @@ class Order(models.Model):
     address = models.CharField(blank=True, default=None, null=True, max_length=256)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    status = models.ForeignKey(Status, on_delete=models.PROTECT)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     products = models.ManyToManyField(Product, through='ProductInOrder', through_fields=('order', 'product'))
 

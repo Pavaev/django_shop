@@ -6,7 +6,7 @@ from api import views
 admin.autodiscover()
 
 urlpatterns = [
-    re_path('^products/$', views.product_list, name='product_list'),
-    re_path('^product/(?P<pk>\w+)/$', views.product_detail, name='product_detail')
+    re_path(r'^products/$', views.product_list, name='product_list'),
+    re_path(r'^product/(?P<pk>\w+)/$', views.product_detail, name='product_detail')
 
 ]

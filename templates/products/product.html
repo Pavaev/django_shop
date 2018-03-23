@@ -64,14 +64,17 @@
                         <div id="wrapper">
                             {% include "products/comments.html" %}
                         </div>
-                        <form method="POST" id="comment">
-                            {% csrf_token %}
-                            <textarea id="comment_text" maxlength="1024" name="comment_text"
-                                      class="form-control comment"
-                                      required></textarea>
-                            <span class="form-error"></span>
-                            <button type="submit" class="btn btn-sm btn-info">Добавить комментарий</button>
-                        </form>
+
+                        {% if request.user.is_authenticated %}
+                            <form method="POST" id="comment">
+                                {% csrf_token %}
+                                <textarea id="comment_text" maxlength="1024" name="comment_text"
+                                          class="form-control comment"
+                                          required></textarea>
+                                <span class="form-error"></span>
+                                <button type="submit" class="btn btn-sm btn-info">Добавить комментарий</button>
+                            </form>
+                        {% endif %}
 
                     </div>
 
