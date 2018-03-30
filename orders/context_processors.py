@@ -1,4 +1,3 @@
-# TODO: Remove products from landing page(CSRF trouble)
 from cart.models import Cart
 
 

@@ -17,11 +17,11 @@
 
                             <label>Имя: </label>
                             {% if request.user.is_authenticated %}
-                            <input type="text" value="{{ request.user.username }}"
-                                   name="{{ contact_form.name.html_name }}" class="form-control" required>
-                                {% else %}
+                                <input type="text" value="{{ request.user.username }}"
+                                       name="{{ contact_form.name.html_name }}" class="form-control" required>
+                            {% else %}
                                 <input type="text" value="{{ request.POST.name }}"
-                                   name="{{ contact_form.name.html_name }}" class="form-control" required>
+                                       name="{{ contact_form.name.html_name }}" class="form-control" required>
                             {% endif %}
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         </thead>
                         <tbody>
 
-                         {% for k, v in products_in_basket.items %}
+                        {% for k, v in products_in_basket.items %}
                             <tr>
                                 <td>
                                     {{ v.name }}
@@ -79,7 +79,7 @@
                     </div>
                     <br>
                     <div class="text-right">
-                        <button type="submit" class="btn btn-primary bnt-lg">Заказать</button>
+                        <button name="order" type="submit" class="btn btn-primary btn-lg">Заказать</button>
                     </div>
                 </form>
             </div>

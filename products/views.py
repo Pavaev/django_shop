@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.views.decorators.http import require_POST
 
-from orders.decorators import require_AJAX
+from orders.decorators import require_ajax
 from products.models import Product, ProductComment
 
 
@@ -32,7 +32,7 @@ def show_product(request, product_id):
 
 @login_required
 @require_POST
-@require_AJAX
+@require_ajax
 def add_comment(request, product_id):
     data = request.POST
     ProductComment.objects.create(text=data['text'], user=request.user, product_id=product_id)

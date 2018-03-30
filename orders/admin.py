@@ -9,9 +9,10 @@ from orders.models import Order, Status
 class ProductOrderInline(admin.TabularInline):
     model = Order.products.through
 
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    class Meta():
+    class Meta:
         model = Order
 
     date_hierarchy = 'updated'

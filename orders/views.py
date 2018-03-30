@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from cart.models import Cart
-from orders.decorators import require_AJAX
+from orders.decorators import require_ajax
 from orders.forms import CheckoutContactForm
 from orders.models import Order, ProductInOrder, Status
 
@@ -16,7 +16,7 @@ from products.models import Product
 
 
 @require_POST
-@require_AJAX
+@require_ajax
 def add_to_cart(request):
     cart = Cart(request)
     data = request.POST
@@ -34,7 +34,7 @@ def add_to_cart(request):
 
 @require_POST
 @csrf_exempt
-@require_AJAX
+@require_ajax
 def remove_from_cart(request):
     cart = Cart(request)
     data = request.POST
