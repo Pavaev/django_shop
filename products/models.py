@@ -4,6 +4,8 @@ from django.utils.encoding import smart_text
 
 
 # Create your models here.
+from my_shop import settings
+
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64, blank=True, default=None, null=True)
@@ -59,6 +61,6 @@ class ProductComment(models.Model):
         db_table = 'comments'
 
     text = models.TextField(blank=False, null=False, max_length=1024)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)

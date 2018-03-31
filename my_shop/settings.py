@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
+AUTH_USER_MODEL = 'authentication.User'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'cart.apps.CartConfig',
+    'authentication.apps.AuthConfig'
 
 ]
 

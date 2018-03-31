@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from cart.models import Cart
+from my_shop import settings
 from orders.decorators import require_ajax
 from orders.forms import CheckoutContactForm
 from orders.models import Order, ProductInOrder, Status
@@ -57,12 +58,12 @@ def checkout(request):
         data = request.POST
         contact_form = CheckoutContactForm(request.POST or None)
         if contact_form.is_valid():
-            name = contact_form.cleaned_data['name']
+            email = contact_form.cleaned_data['email']
             phone = contact_form.cleaned_data['phone']
             user = None
             if request.user.is_authenticated:
-                user = User.objects.get(username=request.user.username)
-            order = Order.objects.create(name=name, phone=phone, status_id=1, user=user)
+                user = get_user_model().objects.get(email=request.user.email)
+            order = Order.objects.create(email=email, phone=phone, status_id=1, user=user)
             for item in data:
                 if len(item.split('product_in_basket_')) == 1:
                     continue

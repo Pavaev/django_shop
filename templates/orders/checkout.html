@@ -15,13 +15,13 @@
                         <div class="form-group">
                             <span class="form-error">{{ contact_form.phone.errors }}</span>
 
-                            <label>Имя: </label>
+                            <label>Email: </label>
                             {% if request.user.is_authenticated %}
-                                <input type="text" value="{{ request.user.username }}"
-                                       name="{{ contact_form.name.html_name }}" class="form-control" required>
+                                <input type="text" value="{{ request.user.email }}"
+                                       name="{{ contact_form.email.html_name }}" class="form-control" required>
                             {% else %}
-                                <input type="text" value="{{ request.POST.name }}"
-                                       name="{{ contact_form.name.html_name }}" class="form-control" required>
+                                <input type="text" value="{{ request.POST.email }}"
+                                       name="{{ contact_form.email.html_name }}" class="form-control" required>
                             {% endif %}
                         </div>
                     </div>

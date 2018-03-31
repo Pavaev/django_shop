@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.utils.encoding import smart_text
 
 # Create your models here.
+from my_shop import settings
 from products.models import Product
 
 
@@ -28,8 +29,7 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
-    user = models.ForeignKey(User, blank=True, default=None, null=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=64, blank=False, default=None, null=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, default=None, null=True, on_delete=models.CASCADE)
     email = models.EmailField(blank=True, default=None, null=True)
     phone = models.CharField(max_length=48, blank=False, default=None, null=False)
     comments = models.TextField(blank=True, default=None, null=True)
@@ -41,7 +41,7 @@ class Order(models.Model):
     products = models.ManyToManyField(Product, through='ProductInOrder', through_fields=('order', 'product'))
 
     def __str__(self):
-        return smart_text(str(self.id) + ' ' + self.name)
+        return smart_text(str(self.id) + ' ' + self.email)
 
 
 class ProductInOrder(models.Model):

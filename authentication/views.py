@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
-from auth.forms import RegisterForm
+from authentication.forms import RegisterForm
 
 
 def sign_up(request):
@@ -13,9 +13,9 @@ def sign_up(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             my_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=my_password)
+            user = authenticate(email=email, password=my_password)
             login(request=request, user=user)
             return redirect(reverse('landing:home'))
     else:
@@ -26,9 +26,9 @@ def sign_up(request):
 
 @require_POST
 def sign_in(request):
-    username = request.POST['username']
+    email = request.POST['email']
     password = request.POST['password']
-    user = authenticate(username=username, password=password)
+    user = authenticate(email=email, password=password)
     if user is not None:
         login(request=request, user=user)
         return redirect(reverse('landing:home'))
