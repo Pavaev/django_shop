@@ -1,16 +1,17 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
-from authentication.forms import RegisterForm
+from authentication.forms import EmailUserCreationForm
 
 
 def sign_up(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = EmailUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             email = form.cleaned_data.get('email')
@@ -19,7 +20,7 @@ def sign_up(request):
             login(request=request, user=user)
             return redirect(reverse('landing:home'))
     else:
-        form = RegisterForm()
+        form = EmailUserCreationForm()
     return render(request, 'landing/register.html',
                   locals())
 
@@ -39,3 +40,15 @@ def sign_in(request):
 def log_out(request):
     logout(request)
     return redirect(reverse('landing:home'))
+
+
+def verify(request, uuid):
+    try:
+        user = get_user_model().objects.get(verification_uuid=uuid, is_verified=False)
+    except get_user_model().DoesNotExist:
+        raise Http404("User does not exist or is already verified")
+
+    user.is_verified = True
+    user.save()
+
+    return redirect('landing:home')

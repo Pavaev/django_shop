@@ -12,11 +12,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-try:
-    from . import local_settings
-except ImportError:
-    pass
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = local_settings.SECRET_KEY
+SECRET_KEY = 'example'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +27,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost']
 
 # Application definition
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 0
 
 AUTH_USER_MODEL = 'authentication.User'
 
@@ -164,3 +165,14 @@ STATICFILES_FINDERS = (
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 FIXTURE_DIRS = (os.path.join(BASE_DIR, 'fixtures'),)
+
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+
+# GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to USERNAME;
+# GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public to USERNAME;
+# GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public to USERNAME;
