@@ -93,8 +93,7 @@ class TestBase(StaticLiveServerTestCase):
         driver.find_element_by_name("phone").clear()
         driver.find_element_by_name("phone").send_keys(order.phone)
         driver.find_element_by_name("order").click()
-
-
+        print('Meow')
 
 class TestOrders(TestBase):
 
