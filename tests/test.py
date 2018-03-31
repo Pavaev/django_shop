@@ -95,7 +95,6 @@ class TestBase(StaticLiveServerTestCase):
         driver.find_element_by_name("order").click()
 
 
-
 class TestOrders(TestBase):
 
     def test(self):
