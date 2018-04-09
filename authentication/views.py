@@ -8,6 +8,8 @@ from django.views.decorators.http import require_POST
 
 from authentication.forms import EmailUserCreationForm
 
+User = get_user_model()
+
 
 def sign_up(request):
     if request.method == 'POST':
@@ -44,8 +46,8 @@ def log_out(request):
 
 def verify(request, uuid):
     try:
-        user = get_user_model().objects.get(verification_uuid=uuid, is_verified=False)
-    except get_user_model().DoesNotExist:
+        user = User.objects.get(verification_uuid=uuid, is_verified=False)
+    except User.DoesNotExist:
         raise Http404("User does not exist or is already verified")
 
     user.is_verified = True

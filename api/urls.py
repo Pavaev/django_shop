@@ -1,12 +1,10 @@
-from django.contrib import admin
-from django.urls import re_path, include
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from rest_framework import urls as rest_urls
+from api.views import WorkWithProductSet, Login, WorkWithUserSet
 
-from api import views
-
-admin.autodiscover()
-
-urlpatterns = [
-    re_path(r'^products/$', views.product_list, name='product_list'),
-    re_path(r'^product/(?P<pk>\w+)/$', views.product_detail, name='product_detail')
-
-]
+router = DefaultRouter()
+router.register('products', WorkWithProductSet)
+router.register('users', WorkWithUserSet)
+urlpatterns = router.get_urls()
+urlpatterns += path('auth/login', Login.as_view()),

@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 from django.utils.encoding import smart_text
 
 # Create your models here.
@@ -29,16 +27,17 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, default=None, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='orders', blank=True, default=None, null=True,
+                             on_delete=models.CASCADE)
     email = models.EmailField(blank=True, default=None, null=True)
     phone = models.CharField(max_length=48, blank=False, default=None, null=False)
     comments = models.TextField(blank=True, default=None, null=True)
     address = models.CharField(blank=True, default=None, null=True, max_length=256)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE)
+    status = models.ForeignKey('Status', related_name='status', on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
-    products = models.ManyToManyField(Product, through='ProductInOrder', through_fields=('order', 'product'))
+    product = models.ManyToManyField(Product, through='ProductInOrder', through_fields=('order', 'product'))
 
     def __str__(self):
         return smart_text(str(self.id) + ' ' + self.email)
@@ -46,5 +45,5 @@ class Order(models.Model):
 
 class ProductInOrder(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order,  on_delete=models.CASCADE)
     count = models.IntegerField(blank=False, null=False, default=1)

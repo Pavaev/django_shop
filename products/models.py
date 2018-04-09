@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.encoding import smart_text
 
-
 # Create your models here.
 from my_shop import settings
 
@@ -35,6 +34,7 @@ class Product(models.Model):
     short_description = models.TextField(blank=True, default=None, null=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return smart_text('Товар: ' + self.name + " Цена:" + str(self.price))

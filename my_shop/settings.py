@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+AUTH_USER_MODEL = 'authentication.User'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -28,13 +29,6 @@ ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 0
-
-AUTH_USER_MODEL = 'authentication.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -57,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -131,6 +125,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Telegram bot token
+TELEGRAM_TOKEN = '589932574:AAGAOwBngCuNgdtFOO_0gtkmb6jUuCpLZW4'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -166,13 +163,33 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 FIXTURE_DIRS = (os.path.join(BASE_DIR, 'fixtures'),)
 
-
 try:
     from .local_settings import *
 except ImportError:
     pass
 
+# REDIS related settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+
+# Mail settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 0
 
 # GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to USERNAME;
 # GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public to USERNAME;
 # GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public to USERNAME;
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+
+    )
+}

@@ -1,13 +1,9 @@
 import uuid
 
-from django.core.mail import send_mail, EmailMessage
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, Permission
 from django.db.models import signals
-from django.urls import reverse
-
-from my_shop import settings
-
+from authentication.tasks import send_verification_email
 
 class UserAccountManager(BaseUserManager):
     use_in_migrations = True
@@ -61,18 +57,9 @@ class User(PermissionsMixin, AbstractBaseUser):
 def user_post_save(sender, instance, signal, *args, **kwargs):
     if not instance.is_verified:
         # Send verification email
-        print(settings.DATABASES)
-
-        send_mail(
-            'Verify your QuickPublisher account',
-            '',
-            'from panaev',
-            [instance.email],
-            fail_silently=False,
-            html_message='<html><body>Follow this link to verify your account: '
-                         '<a href="http://localhost:8000%s">Verify</a></body></html>' % reverse(
-                'auth:verify', kwargs={'uuid': str(instance.verification_uuid)})
-        )
+        send_verification_email.delay(instance.id)
 
 
 signals.post_save.connect(user_post_save, sender=User)
+
+

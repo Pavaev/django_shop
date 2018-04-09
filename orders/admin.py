@@ -7,7 +7,7 @@ from orders.models import Order, Status
 
 
 class ProductOrderInline(admin.TabularInline):
-    model = Order.products.through
+    model = Order.product.through
 
 
 @admin.register(Order)

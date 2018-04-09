@@ -1,4 +1,7 @@
+# from __future__ import unicode_literals
+
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.shortcuts import render, get_object_or_404
@@ -12,7 +15,9 @@ from products.models import Product, ProductComment
 
 
 def show_product(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
+    product = Product.objects.get(id=product_id)
+    product.views += 1
+
     comments = ProductComment.objects.filter(product=product).order_by('-created')
     paginator = Paginator(comments, 2)
     page = request.GET.get('page')
@@ -27,6 +32,7 @@ def show_product(request, product_id):
         request.session.cycle_key()
     if request.is_ajax():
         return render(request, 'products/comments.html', {'comments': comments, 'product_id': product_id})
+    product.save(force_update=True)
     return render(request, 'products/product.html', locals())
 
 
